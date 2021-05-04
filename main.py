@@ -2,8 +2,9 @@ import sys
 import os
 import numpy as np
 import struct
+
 import tensorflow as tf
-import cnn
+import Cnn
 
 
 # Press the green button in the gutter to run the script.
@@ -13,9 +14,9 @@ def main():
     if len(sys.argv) != 2:
         print("Wrong number of arguments")
         sys.exit(0)
-    elif sys.argv[2] == 'mnist':
+    elif sys.argv[1] == 'mnist':
         """Load MNIST data from `path`"""
-        path = '.'
+        path = ''
         kind = 'train'
         labels_path = os.path.join(path, '%s-labels.idx1-ubyte' % kind)
         images_path = os.path.join(path, '%s-images.idx3-ubyte' % kind)
@@ -30,15 +31,10 @@ def main():
                 images = ((images / 255.) - .5) * 2
         data = (images, labels)
 
+        cnn = Cnn.cnn(data)
+
 
 
 
 if __name__ == '__main__':
-    x = tf.constant([[1., 2., 3., 4.],
-                     [5., 6., 7., 8.],
-                     [9., 10., 11., 12.]])
-    x=tf.reshape(x, [256,32,27,27])
-    max_pool_2d = tf.keras.layers.MaxPooling2D(pool_size=(2,2), strides=(1,1), padding='valid')
-    print(max_pool_2d(x))
-
-    #main()
+    main()
